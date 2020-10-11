@@ -8,6 +8,8 @@ Once virtual environment is activated, please follow below:
 1. `pip3 install -r requirements.txt`
 2. If you want to visualize the data you can simply run the python notebook - visualizeRawData.ipynb (make sure you have install Jupyter notebook for python 3 as well as ipykernel for python 3)
 
+Main scripts are in Folder src and I assume you will be running all below scripts inside the src, I have set paths relative to src folder.
+
 ##### Part 1 - generate parameterization
 Using intial data raw data in ./Mice_Dataset/BeiMiceTemp.xlsx
 * Step 1 is cleaning the Data 
@@ -71,4 +73,4 @@ Use Dimension 1 persistence diagrams and wasserstein distance with degree 2 for 
 I assume you have dimension 1 persistence diagram with birth death pairs in a file in the input directory each ending with 1.dgm
 Use following command:
 `python3 ./ClusteringScripts/tdaClustering.py inputDir  `
-`python3 ./ClusteringScripts/tdaClustering.py ../Results/CohomologyOPPregJNP/  `
+Ex: `python3 ./ClusteringScripts/tdaClustering.py ../Results/CohomologyOPPregJNP/  `
