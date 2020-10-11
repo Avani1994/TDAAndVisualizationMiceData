@@ -1,4 +1,4 @@
-# Mice Clustering
+# TDA, Visualization, Clustering on Mice Temperature Dats
 
 ### Installation
 We are using `python3` and `pip3`
