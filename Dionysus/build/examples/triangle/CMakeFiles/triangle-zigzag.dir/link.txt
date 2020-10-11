@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/triangle-zigzag.dir/triangle-zigzag.o  -o triangle-zigzag  /usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.71.0 

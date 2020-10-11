@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/utilities/indirect.h
+boost/iterator/iterator_adaptor.hpp
+-
+boost/iterator/iterator_facade.hpp
+-
+iterator
+-
+
+/root/LatestVersion/Dionysus/tests/utilities/test-set-iterators.cpp
+vector
+-
+list
+-
+algorithm
+-
+iostream
+-
+utilities/indirect.h
+-
+boost/lambda/lambda.hpp
+-
+
