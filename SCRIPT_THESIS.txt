@@ -1,0 +1,500 @@
+P.S. : Bei I have written all this, but I do get nervous while speaking so dont know If will remember all these things.
+
+Hello Every, one!!
+This is Avani, Masters student in computer Science. Today i am here to defend my thesis.
+
+First of all I would like to thank you all for coming to my thesis presentation. I would like to thank my committee members Tom and Vivek for taking out time out of their busy schedules and agreeing to my thesis defense. I am thankful to professor Benjamin Smarr for the data and insights into biological domain. Lastly I am extremely grateful to my advisor Bei, for her consistent support and guidance through out the masters degree. I am thankful to her for her all creative and beautiful ideas and pushing me through for making this thesis productive and innovative.
+
+So I will start now,
+-------------
+Slide 1 :Title
+
+As title suggests, here we are dealing with mice temperature data. Unusual Variation in temperature is the indicator of various critical events such as pregnancy and jetlag and there are further many causes of jetlag. We are using Topological techniques and signal processing in order to visualize the changes that occur through body temperature of mice to furthur explore such unusual events
+----------------
+Slide 2 : Outline 
+This is the outline of how I will be covering the content
+There are 4 main parts :
+Overview : where i will be covering introduction, motivation contributions and related work 
+Pipeline : will mostly be covering data, Pipeline 
+Technical details : It will cover background and important concepts
+Futher results will discuss our observations and will concluse with conclusion and future work
+---------------
+Side 3 : Overview
+
+----------------
+Slide 4 : Introduction
+Computational Topology is an intersection between topology andd mathematics. It helps us analyzing the data in higher dimensions. It also helps in vizualizing data through various spatial resolutions. 
+We wanted to use this technique for our mice temperature data and see if it could capture the variation in temperature and further vizualize it in interactive way
+Our data set is quite noisy, is discontinuous and has missing values. Applying these techniques to it was really challenging however we did end up with some interesting results
+-----------------
+Slide 5 : Motivation
+
+So what was our motivation behind all this. So as a normal human being or animal, the temperature follows a quite periodic pattern, it follows circadian rhythm also known as 24 hours biological clock. However suring some critical events such as pregnancy or jet lag, this circadian rhythm gets disrupted and this what we call jetlag. 
+Computational topology on other hand offer tools which detect and visualize periodicity. So we thought why not apply these technique and see if they reveal something interesting
+
+--------------------------------------
+Slide 6 : How does pregnancy Affect periodicity?
+
+On LHS u see a Non pregnant mice while on RHS its pregnant. We can see how temperature shows variation for pregnant mice whereas its quite periodic for non pregnant mice. These are some good cases, However it is not possible always to eyeball these changes. hence some technique was necessary to visualize these changes.
+--------------------
+Slide 7 : Contribution 1
+
+Yeah so this is ou first main contribution. We could detect pregnacy and non pregnancy.
+Can you tell which mice is pregnant and which is not ?
+------------------------
+Slide 8 : Contribution 1
+
+So here it is on Left it is Not pregnant and on Right it is pregnant. You can see a lot of difference between both the visuals. Right one has thick circular structure whereas left one is thinner. Thicknees on right signifies the variations in the underlying signal
+------------------------
+Slide 9 : Contribution 2
+
+
+So here u see a bunch of mice. These all are Jet Lagged and not pregnant. You can see how strong is the effect of Jetlagg. Through these visual profiles we could infer that their might be sub categories. So later we could cluster these mice as well to support our conjecture. This is ou 2nd main contribution.
+----------------------
+Slide 10 : Contribution 3
+here u see three figures, pre jetlag during jetlag and post jetlag. We could see how this visual profile is changing through each stage. in the middle u see during jetlag period, where in we can see how variations are captured. We can see there is some after affect too that means mice doesnt return back to its normal circadian rhythm. This is our 3rd contribution
+-------------------------
+Slide 11 : Contribute 4
+Here you see a Non Jetlagged non pregnant mice on LHS and on right is Jet Lagged Non pregnant mice. Only difference is one is jetlagged while other is not
+We can see how strongly the influence of jetlag is changing the shape of signal. 
+----------------------
+Slide 12 : Related Work
+
+This work is by professor Benjamin Smarr where in he looked at mice in Non Jetlagged category. He did differentiation between two categories : Non Jetlagged Not Pregnant and Non Jetlagged Partial Pregnant mIce. By partial Pregnant I mean the mice which gets pregnant but does not deliver
+
+Through this picture, in the boxed region there is more intensity where as there is less ontesity in lower row.
+Upper opne corresponds to pregnant mice while lower one corresponds to non pregnant mice
+------------------------
+Slide 13 : Pipeline
+Now I will be explaining the data and pipeline
+
+
+--------------------------
+Slide 14 : Data
+
+First there is Data, We got this data from professor Benjamin Smarr from Pshycology department at University of California Berkeley. 
+There are a total of 84 mice. half of them are Jetlagged and other half non Jetlagged. among these there are categories such as pregnant, not pregnant and partital pregnant
+
+So in all we have 6 categories which depicted in this pie chart. 
+Red is Non Jetlagged and Blue is Jetlagged and there are further which are labelled in picture with counts.
+
+Also we have the truncated data with 3 stages : pre during and post pregnancy, same for jetlag
+
+
+----------------------------
+Slide 15 : A closer Look at the Data
+
+Here is the visual for our data. Columns are mice ids. And maximum no. data points in time series are around 160 K. However this number is not same for all of these.
+The black portion are data where as white potion is missing values.
+We can see it is quite noisy in the first look.
+
+
+------------------------------
+
+Slide 16 : Data Cleaning
+As part of data cleaning, we removed all the subjects with frequent gaps and empty ones
+Also removed subjects with lessser than 1000 points. 
+For points with 1 or 2 large gaps we separated the chunks generated point cloud for each of them and then concatenated the point clouds
+As part of outlier removal, we removed all the points which were 3 standard deviations away
+
+For furthure analysis were left with 73 mice out of which 37 were not jetlagged and 36 were jetlagged
+
+
+---------------------------------
+
+Slide 17 : Pipeline - Step 1 : DATA CLEANING
+
+So first row is raw data, after we do the procedure described in previous slide we get cleaned data in second row
+
+---------------------------------
+
+Slide 18 : Step 2 : Low Pass filter
+
+This is mainly for smoothing of data. It passes all frequencies below certain cutoff. For our data cutoff is 0.02
+
+We can see in picture how signal gets smoother after low pass filte
+
+---------------------------------
+Slide 19 :  Step 3 : Sub Sampling
+As u can see in the previous picture how long this signal is : arounf 100K
+It was difficult for us to run cohomology pipeline and obtain some results. It used to take a huge amount of time and hence we decided to sub sample the data.
+
+We used suniform sampling with sampling rate  1 per 100 points
+
+-----------------------------
+
+Slide 20 : Step 4 : Rank Filter
+
+You can see that it is quite aggressive, The reason for doing this was we could not obtain cohomology parameterization  with the sub sampled signal. It did produce some results but those were not that informative.
+
+So now definition of rank Filter:
+rank Filter is an FFT filter which retains mean and and k higher frequencies in terms of amplitude. So what is does is it computes Fast Fourier transform, which is complex combination of frequencies. It sorts those frequencies, computes mean. It then passes k frequencies with highest amplitude along with mean
+
+
+We can see through the pictures how this filter  is still reatining some information in wave which can be used in further processing.
+----------------------------
+
+Slide 21 : step 5 : Delayed Window Embedding 
+
+This preprocessed signal is then converted into Point cloud using Delayed window embedding. Delayed window embedding required 2 parameters : Embedding dimension and gap size
+So I will explain through this picture how does it works. 
+
+Here this signal is embedded in three dimensional point cloud. Here embedding size is 3 and gap is 1
+So we use first 3 points in this signal as first point is 3 dimension, we shift by 1 gap size and take next 3 points as 2nd point in 3 dimension.
+
+And right side shows output. Since underlying signal is periodic data in 3 dimension shows many circular structures. 
+
+From this structure we want pick the highest persistence circle as that corresponds to the natural frequency and periodicity of signal in one dimension. This was proven in this paper.
+
+
+-----------------------------
+
+Slide 22 : Step 6 : VISUAL ProfILE USING COHOMOLOGY PARAMETERIZATION AND PCA
+
+This point cloud is then input to Cohomology Parameterization algorithm To obatin the visual profile. We use PCA to projects 2 principle dimension for purposes of visualization.
+
+------------------------------
+
+Slide 23 : step 7 : Map back
+
+To verify how does this parameterization map back to the original signal we had to use some traditional techniques such as DFT. 
+We can see how rainbow colour repeats in the original signal which gives indication of periodicity
+
+----------------------------
+
+Slide 24 Technical details:
+
+Now i will be going throuth the background and some important concepts
+
+----------------------------
+
+Slide 25 : PARAMETERS for Delayed window embedding
+
+So as described earlier there two parameters while constructing delayed window embedding. Embedding Dimension and gap size
+
+Embedding dimension is critical : We used False Nearest Neighbour approch to calculate this embedding size.
+
+false nearest neighbours means the points which appear to be neighbpur in lower dimension are actually not in higher dimensions. As can be seen in this picture.
+
+If take x coordinates of A, B, C ,C appears to be more closer to A than B whereas in 2 dimensions it is not. 
+
+So this approch starts with increasing embedding dimension till we have 0 false nearest neighbours.
+
+---------------------------------------------
+
+
+Slide 26 : PARAMETERS for Delayed window embedding
+
+This is the example of mice. where in False nearest neighbours starts increasing after some 300 dimension
+
+All mice showed similar behaviour
+
+hence we chose embedding size  as 300
+
+***********
+Gap size is realted to point density. For lower value the points are quite near where as for higher value it starts to open up
+
+We chose it as 1 as that was giving us good result
+
+----------------------------
+
+Slide 27 : Detect Periodicity in data
+
+Here we see a pregnant and non pregnant mice. Non pregnant mice's signal is quite periodic where as for pregnant one it not regular although periodicity is there.
+
+As described earlier as well Periodicity in 1 dimension corresponds to Circular structure in higher dimension we expect to see regular circular structure for non pregnant mice 
+
+Whereas for pregnant mice they should be some what irregular circular structures. That is what we expect to see in our results
+
+------------------------------
+Slide 28 : Circular Value PARAMETERIZATION IN HIGH DIMENSION
+
+This is the output of cohomology algorithm where in left it identifies the larger persistence circular structure where as on right there is again a circular structure but with very low persistence. This is termed as noise.
+
+here we can see a rainbow colour which goes around all thes points in left capturing all information about this figure that it has a loop where as on right it captures nothing
+
+---------------------------------
+
+Slide 29 : PersistenT Homology
+
+In order to tell you about persistent cohomology I will have to explain homology. So here we see a picture with a) b) c). I a) u can see that there are 5 points at t = 0, and their radius starts increasing with time. AT t = 2.5 green one merges into red so we can say green died and life of green was from 0  to 2.5 which can also be called persistence of green similarly several components dies. However at t = 4.2 something interesteing happens adjacent points get connected with each other 
+
+Here we can see there is a formation of loop and 4.2 is its birth time, this loops dies at t = 5.6 when everything gets merged into one another.
+
+B) shows the life time of each feature in form of persistence barcode. Horizontal length of bar represents persistence of feature
+
+C) shows the formation of simplicial complex, its the combination of vertices edges and triangles and more higher dimensional simplex.
+
+Initially there are only the vertices, with timepoints start mergeing and theres is formation of edges and triangles.
+
+when two points merge we forme an edge between them when we there are three edges in form of triangle we fill it with triangle
+
+------------------------------
+
+Slide 30 : 
+
+This shows the persistence homology for annulus, On left u see a point cloud sample from annulus whereas on right you see a paersistence diagram of same. So on x axis we have birth time of feature and on y axis we have death time of feature.
+
+So same as we start increasinf the radius these points get connect at some point and form a loop
+
+This single point away from diagonal is that loop, 
+
+All other points near to diagonal have low persistence and are noise.
+
+-----------------------------
+
+Slide 31 : Persistence Cohomology BASED CIRCULAR PARAMETERIZATION
+
+Now I will explain Cohomology and Circular Value Parameterization :
+
+In the pipeline  first step is to compute simplical complex from point cloud.
+
+Then we identify cycles which are cocycles in persistence homology
+Cocycle is nothing but a function defined over the cocycle or it is the functional form of the geometry
+
+Smoothing a technique defined in the original paper by Vin de silva is used to convert cocycle into circular function.
+
+There we have a function defined on vertices in the point cloud
+
+For visualization purposes we use PCA and project using 2 prinicple directions. 
+This rainbow colour is the circular valued function.
+
+Here we see the point cloud sampled from torus,
+
+It has two loops bigger one is parameterized on right while smaller one is parameterized on left which goes across th body of torus
+
+---------------------
+
+Slide 32 : Map Back
+
+We used the traditional methods to mapback the parametrization to the original 1 D signal.
+
+Lomb Scargel and DFT They all give dominant period values. WE calculated period for circular value parameterization and used that to map back to original signal. 
+
+
+
+----------
+
+Slide 33 : RESULTS :
+
+Now I will be explaining my results
+
+--------------
+
+Slide 34 : Visually Detecting PREGNANCY vs NON Pregnancy :
+
+As I explained earlier we could detect pregenency and it can be observed through visual profile
+
+---------------
+
+Slide 35 : Confusion Matrix (Non Jet Lagged) :
+
+Here we can see that we could obtain a pretty good accuracy while predicting Pregnant and Non Pregnanat Mice
+Our prediction for Not Pregnant mice extremely accurate. However there were few false predictions for Non Pregnant Mice.
+
+Overall we could obtain 76% accuracy by obersving these visual profiles
+
+----------------
+
+Slide 36 : Subcategories of JET LAGGED NOT Pregnant MICE
+
+As explained in contribution we could observes categories within the jetlagged mice.
+Here we could see some patterns that were repeating which gave us ides of probable clustering
+
+--------------
+
+Slide 37 : Hierarchical Clustering 
+
+
+
+We tried doing hierarchical clustering and here are the results :
+we can see clusters are tightly grouped using TDA.
+
+As we did not have ground truth available we could not validate this, however it will help biologists to study these mice in more details
+
+As we see the clusters we do see some similarity for example m6 and m8 are both in the same groups on both sides, similarly m98 and m2, however there are variations as well.
+
+The resulst from TDA do correspond to visula profiles.
+
+
+********** can see if u want to say *********
+as this clustering algorithm doesnt require to input number clusters. Sunce we did not the number of clusters it was good choise for us.
+
+We used average link where in u merge the points with minimum distance first and later u compute avaerage distance between clusters to merge them
+
+For the clustering we are not using full data but truncated data during jetlag
+---------------------------
+
+Slide 38 : WAVELETS
+
+Wavelets is a signal processing technique which capture frequency at different scales as well as at different time. We used Haar Wavelet for our dataset because of its popularity in wavelets community.
+
+FFT only looks at frequencies at different scales
+
+Haar wavelets sums the difference in adajacent values at different resolutions 
+
+-----------------------------
+
+Slide 39 : Clustering using Wavelets 
+
+here we used truncated data during jetlag for jetlagged not pregnant mice.
+
+Features we used are approximation coefficients which capture low pass representation of signal.
+
+distance is euclidian distance
+
+------------------------------
+
+Slide 40 : Clustering using topological features 
+
+Again data is truncated and during jetlag
+
+Features : area Persistence diagram which capture information about loops
+Distance is wasserstein distance with degree = 2
+
+* ********* NOt required explain in next slide
+So if there are 2 persistence doagrams we find the optimal matching for every point in one diagram to other and compute the distance between all pairs using L infinity norm and plug in this formula
+
+here q is wasserstein degree and for our dataset it is 2
+
+
+----------------------
+
+Slide 41 : Wasserstein distance 
+
+star belong to one diagram whereas solid black points belong to other diagram . each point in one diagram is mapped to some point in other diagram which minimizes total cost. Cost is define through L infinity norm
+
+and then we plug values in formula to compute wasserstein distance
+
+
+---------------------
+Slide 42 : Pre during after jetlag visualization for jetlagged not pregnant mice
+
+This our 3rd results and it is mainly to show how aprofile varies through different stages. I explained this earlier as well as we could see some strange variation during the jetlag
+
+-----------------------
+
+Slide 43 : Variation due to Jetlag
+
+As explained earlier we can see that jetlagged mice show strong variations as compared to non jetlagged mice on left hand side
+
+-------------------
+
+Slide 44 : NON JET LAGGED PARTIAL PREGNANT  OBSERVATION
+
+While researching when we ran experiment for this category we saw that it shows nno variations. Although it should have some characteristics of pregnancy however they were exactly same as non pregnant mice. It might be because the pregnancy period in them is too less as compared to non pregnanat perios
+
+----------------------
+
+Slide 45 : Effect of Jetlag on Pregnant Mice
+
+We can see that the visual profile of Jetlagged Pregnant Mice are more dense as compared Non jetelagged pregnant mice. This shows that the effect of jetlag is more strong as to normal pregnanacy. On the right is nothing but project of this figure using 2nd and 3rd principal componenets, which shows its front view
+
+
+---------------
+
+Slide 46 : EFFECT of Jetlag on Partial Pregnanat Mice
+
+Here we can see that  again there is strong Jetlag effect. Normal pregnancy was not dominant in Non Jetlagged Partial Pregnant mice, hoever here we can solely see the effect of jetlag
+
+--------------------
+
+Slide 47 : Confusion Matrix (Jet Lagged)
+
+So here our accuracy was bad as we could never see thos thin circular structure, every single mice was predicted as pregnant. Hence accuracy dropped to half
+
+----------------------
+
+Slide 48 : More Jetlagged Partial pregnanat 
+
+These are some more visuals for Jetlagged partial Pregnant 
+
+we could see some patterns here as well, which indicators of subcategories within jetlag
+
+---------------------
+
+Slide 49 : How can we help biologists
+
+As we have identified some subgroups, now it would be easier for them to conducts further research and find the cause of theses subgroups. They can further be treated with specific medications according to disease characteristics
+
+-----------------------
+
+Slide 50 : Future Work
+
+Initially in pipeline I showed the use of rank Filter and it was too aggressive. We want to get rid of that filter so that our resulst resemble more to the original signal. 
+
+However it was extremely difficult to obtain parameterization without the useage of rank filter.
+
+Lot of parameter tuning was required
+
+Here on right we can see that results are Structurally similar. top is similar to non pregnanat and lower one is similar to pregnanat mice. However there is no goof rainbow colour and that means we are not picking up highest persistence circle.
+
+So it will the future task to automate this proces and make it scalable without the usage of rank filter
+
+----------------------------
+
+Slide 51 : Conclusion
+
+In the ned i would like to conclude with major contributions:
+
+Detection of pregnant vs non pregnanat mice
+Could identify subcategories within tha Jetlagged not pregnant mice
+Could visualize the pre during and post jetlag period and could see the after effects
+Could study effect of jetlag on different groups
+
+This all would potentially give biologists many research directions too pursue
+
+--------------------------------
+
+Slide 52 : References
+
+-----------------------------
+
+Thank you !!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
