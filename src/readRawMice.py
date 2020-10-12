@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from itertools import groupby
 import sys
-
+import os
 def remove0s(col):
     return col[col!=0]
 
@@ -14,6 +14,13 @@ def reducevariance(col):
 
 
 def readRawMice(inputFile, inputSheet, outDir):
+    if not os.path.exists(outDir):
+        try:
+            os.makedirs(outDir)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+
     filepath = inputFile
     #filepath = "../Mice_Dataset/BeiMiceTemp.xlsx"
     #mycolumns = "BU" # choose your columns (comma separated)
