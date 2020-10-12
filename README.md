@@ -1,4 +1,6 @@
 # TDA, Visualization, Clustering on Mice Temperature Data
+### Tutorial for Generating Parameterization for Single Mouse - 
+[Tutorial](TUTORIAL.md)
 
 ### Installation
 We are using `python3` and `pip3`
