@@ -37,8 +37,10 @@ def waveletClustering(inputFile, sheetname):
     print(df.shape)
     cAdata = []
     cDdata = []
+    labelsWavelet = []
     for col in df.columns:
         print(col)
+        labelsWavelet.append(col.rstrip('preg'))
         cA, cD = pywt.dwt(df[col], 'haar')
         cAdata = cAdata + [cA]
         cDdata = cDdata + [cD]
@@ -88,12 +90,14 @@ def waveletClustering(inputFile, sheetname):
     plt.show()
 
     max_d = 160
+
     clusters = fcluster(result, max_d, criterion='distance')
     print(clusters)
 
     #198 JPP, # 150 JPPPreg
     #140 JP, # 90 : JPPreg
     #160 JNPPreg 
+    return clusters, labelsWavelet
 
 def main():
     if(len(sys.argv) < 3):

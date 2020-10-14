@@ -18,9 +18,10 @@ def tdaClustering(inputDir):
 	#root2 = "./CohomologyOPPregJNP/"
 	root2 = inputDir
 	pairdist = []
+	labelsTDA = []
 	for path, subdirs, files in os.walk(root2):
 		for i, subname1 in enumerate(subdirs):
-			print(subname1)
+			labelsTDA.append(subname1.rstrip("preg_"))
 			for path2, subdirs2, files2 in os.walk(root2):
 				for j, subname2 in enumerate(subdirs2):
 					if(j > i):
@@ -45,7 +46,7 @@ def tdaClustering(inputDir):
 						
 	print(pairdist)	
 	print(len(pairdist))
-	result = linkage(pairdist, method='average', metric='euclidean')
+	result = linkage(pairdist, method='average')
 	print(result)
 
 	plt.title('Hierarchical Clustering Dendrogram (TDA Dim 1)')
@@ -80,6 +81,7 @@ def tdaClustering(inputDir):
 	#JNPPreg : 90 , 6.5 (dim 0), 1.5 (dim 1) (degree 2)
 	#JPPPreg : 110
 	#JPPreg : 70 , 4 (degree 2)
+	return clusters, labelsTDA
 
 def main():
 	if(len(sys.argv) < 2):
