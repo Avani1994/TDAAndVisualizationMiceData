@@ -76,3 +76,9 @@ I assume you have dimension 1 persistence diagram with birth death pairs in a fi
 Use following command:
 `python3 ./ClusteringScripts/tdaClustering.py inputDir  `
 Ex: `python3 ./ClusteringScripts/tdaClustering.py ../Results/CohomologyOPPregJNP/  `
+3. **Comparing Two Clusterings with Fowkles Mallows Index**
+Use Following Command 
+`python3 FowklesMallowsIndex.py inputDir_We_Used_For_TDA_Clustering InputFile_We_Used_For_Wavelet_Clustering sheetname_We_Used_For_Wavelet_Clustering   `
+Ex: `python3 FowklesMallowsIndex.py ../Results/CohomologyOPPregJNP/ ../Mice_Dataset/preg_for_mice.xlsx JNP  `
+
+
