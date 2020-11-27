@@ -27,6 +27,7 @@ def waveletClustering(inputFile, sheetname):
     #print (df)
     print(df.info())
 
+    # Truncating the dataset as hierarchichal clustering takes same length for each subject
     df = df[:25079]	# JNPPreg
     #df = df[:23163] # JP #JPPreg
     #df = df[:23639] #JPPPreg
@@ -58,7 +59,8 @@ def waveletClustering(inputFile, sheetname):
     #uppertriu =	scipy.sparse.triu(pairwisedist, k =1)
 
 
-
+    #Takes in wavelet coefficients instead of pairwise distance b/w them, 
+    # calculated distance internally
     result = linkage(cAdatanp, method='average', metric='euclidean')
     #result = linkage(cDdatanp, method='average', metric='euclidean')
     print(result)

@@ -16,6 +16,9 @@ def computeFowklesMallowsIndex(inputDirTDA, inputFileWavelet, sheetNameWavelet):
     #[2, 2, 1, 1, 1, 1, 3, 3, 3, 3, 4] -- cutoff 167
 
 
+    #Reorganize labels of wavelet clustering according to TDA 
+    #label so that they are in same order
+    
     reOrganizedWavelet = []
     dicWavelet = {}
     for pair in zip(labelsWavelet, clustering_Wavelet):

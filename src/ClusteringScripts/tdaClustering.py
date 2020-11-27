@@ -19,6 +19,8 @@ def tdaClustering(inputDir):
 	root2 = inputDir
 	pairdist = []
 	labelsTDA = []
+	
+	#Calcualtes pairwise distance between persistence diagrams usning wasserstein distance
 	for path, subdirs, files in os.walk(root2):
 		for i, subname1 in enumerate(subdirs):
 			labelsTDA.append(subname1.rstrip("preg_"))
@@ -46,6 +48,8 @@ def tdaClustering(inputDir):
 						
 	print(pairdist)	
 	print(len(pairdist))
+
+	#Uses pairwise distance as we can not input persistence diagrams directly
 	result = linkage(pairdist, method='average')
 	print(result)
 
