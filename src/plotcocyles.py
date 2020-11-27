@@ -10,6 +10,7 @@ from runCohomology import getCocyles
 from sys import argv
 import sys
 
+# plot cocycles - points.val using two most prominent directions obtained using PCA
 def plotcocyles(inputDir, cofile, micename):
    # mapping for circular value parameterization
     directory = inputDir + micename + "/" 

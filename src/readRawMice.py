@@ -9,6 +9,7 @@ import os
 def remove0s(col):
     return col[col!=0]
 
+#Remove data points which are 3 standard deviations away
 def reducevariance(col):
     return col[~((col-col.mean()).abs()>3*col.std())]
 
@@ -56,9 +57,9 @@ def readRawMice(inputFile, inputSheet, outDir):
         #print tempdf
         newDF[column] = pd.Series(tempdf)
     
+    #Splitting into separate series/list where there are greater than k consecutive NaNs
     for column in newDF:
         #print column
-        
         # sparse_ts = newDF[column].to_sparse()
         # block_locs = zip(sparse_ts.sp_index.blocs, sparse_ts.sp_index.blengths)
         # #print block_locs
@@ -71,6 +72,7 @@ def readRawMice(inputFile, inputSheet, outDir):
 
     newDF2 = pd.DataFrame()
 
+    # Assigning new key to each mice timeseries (e.g. m1_0, m1_1 if mouse 1 is split into 2 parts and creating new dataframe)
     for column in outputs_dict.keys():
         #print column
         for i,block in enumerate(outputs_dict[column]):
@@ -89,7 +91,7 @@ def readRawMice(inputFile, inputSheet, outDir):
     dic = {k: list(v) for k, v in groupby(column_labels, key=lambda x: x[:-1])}
     #print dic
 
-    
+    #Saving cleaned Mice
     for key in dic.keys():
         for col in dic[key]:
             #print col
@@ -98,6 +100,7 @@ def readRawMice(inputFile, inputSheet, outDir):
             column.to_csv(outDir + str(col) + '_clean.csv',header=False,index = False, na_rep = None)
             #column.to_csv('../CleanedMice/CleanReproducible/'+ str(col) + '_clean.csv',header=False,index = False, na_rep = None)
     
+    #return mouse headers for further use
     return dic
 
 

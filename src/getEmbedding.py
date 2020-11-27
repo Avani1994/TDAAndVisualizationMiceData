@@ -10,6 +10,7 @@ def my_range(start, end, step):
         start += step
     return roll
 
+#gets delayed window embedding for a time series given window size and gap size
 def getEmbedding(datain, windowsize, gap=1):
     #print ("MaxTau = {0} " .format(maxtau))
     print ("Window Size = {0} " .format(windowsize))
@@ -32,6 +33,7 @@ def getEmbedding(datain, windowsize, gap=1):
     out = np.array(out, dtype=float)
     return(out)
 
+#Taken's Embedding using subsampling
 def getEmbeddingSubSample(datain, windowsize, gap=1):
     #np.max(a.shape[0] - (w-1)*(g+1), 0)
     #print(np.arange(windowsize)*(gap + 1)) + np.arange(np.max(datain.shape[0]-(windowsize-1)*(gap+1),0)).reshape(-1,1)

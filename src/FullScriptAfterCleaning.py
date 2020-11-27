@@ -40,6 +40,8 @@ def generateVisualprofile(inputDir, outDir):
     windows = 300
     #tau = 300
     print(dicts)
+    #Iterate through whole mice dataset, get embedding for each mice, 
+    #generate circular value parameterization for each of them
     for key in dicts.keys():
         print(key)
         Embed = np.empty((0,300), float)

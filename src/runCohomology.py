@@ -4,6 +4,7 @@ import os
 import glob
 import heapq
 
+# execute rips-pairwise cohomology to generate cicrcular value parameterization - points.ccl
 def getCocyles(data, max_distance, micename, outDir, skeleton=2):
     # remove old files
     try:

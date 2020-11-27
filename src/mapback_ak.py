@@ -13,6 +13,7 @@ import scipy as sp
 from astropy.stats import LombScargle
 import math
 
+# get period using fft
 def getPeriod(value):
     X = np.array(value)
     N = len(value)
@@ -27,6 +28,7 @@ def getPeriod(value):
     max_f = abs(freq[idx])
     return 1/max_f
 
+#get period using LombScargle method 
 def getPeriod2(values):
     frequency, power = LombScargle(range(1, len(values) + 1), values).autopower()
     plt.plot(frequency, power)
@@ -47,7 +49,7 @@ def getPeriod2(values):
     max_f = abs(frequency[idx][1])
     return 1/max_f
 
-
+# Map back points.val to actual smoothened timeseries and generate plot for comparison
 def mapplot(V, val_fn, dt):
     points = V
     

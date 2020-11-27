@@ -16,6 +16,7 @@ def readandsmooth(inputDir, infile, outDir):
     temp = np.genfromtxt(inputDir+infile, delimiter=',')
     print(np.shape(temp))
 
+    #Only process mice if there are more than 10 data points
     if(np.shape(temp) > (10,)):
         # First, design the Buterworth filter
         N  = 2    # Filter order
@@ -35,6 +36,7 @@ def readandsmooth(inputDir, infile, outDir):
                 if e.errno != errno.EEXIST:
                     raise
 
+        # Save output of lowpass butterworth filter
         np.savetxt(directory + '/lpf.csv', tempf, delimiter=',')
 
         #Call RScript that smoothens the input
