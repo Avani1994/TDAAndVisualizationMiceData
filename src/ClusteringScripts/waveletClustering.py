@@ -52,7 +52,7 @@ def waveletClustering(inputFile, sheetname):
     cAdatanp = np.array([np.array(xi) for xi in cAdata])
     cDdatanp = np.array([np.array(xi) for xi in cDdata])
     #print cAdatanp
-    print(np.shape(cAdatanp))
+    print("shape of wavelets:", np.shape(cAdatanp))
     pairwisedist = pdist(cAdatanp, 'euclidean')
     print(pairwisedist)
     print(squareform(pairwisedist))

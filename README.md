@@ -21,7 +21,7 @@ Using intial data raw data in ./Mice_Dataset/BeiMiceTemp.xlsx
     Ex: `python3 readRawMice.py ../Mice_Dataset/BeiMiceTemp.xlsx ForReproducingResults ../CleanedMice/CleanReproducible/`
 
 * To plot the data after cleaning you can simple run below script:
-    `python3 readRawMice.py InputDirPath`
+    `python3 plotCleanedMice.py InputDirPath`
     Ex: `python3 plotCleanedMice.py ../CleanedMice/CleanReproducible/ `
 
 * Step 2 is smoothing the temperature time series for each mice
@@ -34,8 +34,8 @@ Using intial data raw data in ./Mice_Dataset/BeiMiceTemp.xlsx
    Ex: `python3 readandsmooth.py ../CleanedMice/CleanReproducible/ ../SmoothenedMice/SmoothedReproducible/  `
 
 * To plot the data after cleaning you can simply run below script:
-    `python3 readRawMice.py InputDirPath`
-    Ex: `python3 plotCleanedMice.py ../CleanedMice/CleanReproducible/ `
+    `python3 plotSmoothing.py InputDirPath`
+    Ex: `python3 plotSmoothing.py ../SmoothenedMice/SmoothedReproducible/`
 
 * Step 3 is to generate circular valued parameterization for the output in step 2 (step to be done on Linux Machine)
 You will have to generate your own binary for rips-pairwise-cohomology. You may take help from this page: https://mrzv.org/software/dionysus/get-build-install.html
@@ -73,7 +73,7 @@ Use following command:
 Ex: `python3 ./ClusteringScripts/waveletClustering.py ../Mice_Dataset/preg_for_mice.xlsx JNP`
 2. **TDA Clustering**
 Use Dimension 1 persistence diagrams and wasserstein distance with degree 2 for clustering
-I assume you have dimension 1 persistence diagram with birth death pairs in a file (generated in step 3 above) in the input directory each ending with 1.dgm
+I assume you have dimension 1 persistence diagram with birth death pairs in a file (generated in step 3 in Part-1) in the input directory each ending with 1.dgm
 Use following command:
 `python3 ./ClusteringScripts/tdaClustering.py inputDir  `
 Ex: `python3 ./ClusteringScripts/tdaClustering.py ../Results/CohomologyOPPregJNP/  `

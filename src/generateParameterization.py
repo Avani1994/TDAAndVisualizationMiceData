@@ -18,6 +18,12 @@ def findParameterization(X, gap, maxdist, micename, outDir):
     #d = pdist(X)
     #maxdist = np.mean(d)
     directory = outDir + micename + '/'
+    if not os.path.exists(directory):
+        try:
+            os.makedirs(directory)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
     print("maxdist", maxdist)
     X.astype('float64', order='C')
     np.savetxt(directory+'data.txt', X, fmt = '%f')
@@ -27,9 +33,12 @@ def findParameterization(X, gap, maxdist, micename, outDir):
     
     # generate mapping/points.val for circular value parameterization
     #if(os.exists(directory + 'points-0.ccl')
-    q = call(['python cocycle.py ' + directory + 'points.bdry '+ directory + 'points-0.ccl ' + directory + 'points.vrt'], shell=True)
-    call(['python cocycle.py ' + directory + 'points.bdry '+ directory + 'points-1.ccl ' + directory + 'points.vrt'], shell=True)
-    if q==0:
-        print("Circular Value Parameterization successful")
-    else:
-        print("Circular Value Parameterization not successful. Continuing ...")
+    for p, sub, fil in os.walk(directory):
+        for f in fil:
+            if( f.endswith('.ccl')): 
+                q = call(['python cocycle.py ' + directory + 'points.bdry '+ directory + 'points-' + f.split('-')[1].split('.')[0] + '.ccl ' + directory + 'points.vrt'], shell=True)
+                #call(['python cocycle.py ' + directory + 'points.bdry '+ directory + 'points-1.ccl ' + directory + 'points.vrt'], shell=True)
+                if q==0:
+                    print("Circular Value Parameterization successful")
+                else:
+                    print("Circular Value Parameterization not successful. Continuing ...")
